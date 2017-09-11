@@ -15,7 +15,11 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 /**
- * Hello world!
+ * A simple discord bot.
+ * 
+ * TODO:
+ * 	-break down into file system
+ *  -play with commands!
  *
  */
 public class App extends ListenerAdapter {
