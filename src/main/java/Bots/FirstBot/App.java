@@ -20,12 +20,18 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  */
 public class App extends ListenerAdapter {
 	
+	//»
 	public static final String token = 
 			"MzU2Njc3MTE2OTE5Njc2OTI4.DJe8BQ.jT5PJ84GWoFJdxXU-suZdoRm3Uo";
 	public final String helpString = 
-			   "<!>hello - Bot will reply with a friendly greeting.\n"
-	         + "<!>roll [integer] - Bot will return a number from 1-6 or 1-integer.\n"
-	         + "<!>pal <word> - Bot will tell you whether or not your word is a palindrome.";
+			   "<!>hello,hi,hey » Bot will reply with a friendly greeting.\n"
+	         + "<!>roll [integer] » Bot will return a number from 1-6 or 1-integer.\n"
+	         + "<!>pal,palindrome <word> » Bot will tell you whether or not your word is a palindrome.\n"
+	         + "<!>goodnight,night » Goodnight fair user.\n"
+	         + "<!>thanks,thankyou » Even bots appreciate some thanks!\n"
+	         + "<!>sweet » Try it!\n"
+	         + "<!>logoff » Bot will signout! --UNFINISHED";
+	public final String commandUnfinished = "This command is not finished as of yet, try again soon!";
 	
     public static void main( String[] args ) throws LoginException, IllegalArgumentException, InterruptedException, RateLimitedException {
     	//Initialize the bot
@@ -52,7 +58,7 @@ public class App extends ListenerAdapter {
     		if(args[0].equals("help")) {
     			msgChannel.sendMessage(helpString).complete();
     		}
-    		else if(args[0].equals("hello")) {
+    		else if(args[0].equals("hello") || args[0].equals("hi") || args[0].equals("hey")) {
         		//can also use .queue()
         		msgChannel.sendMessage("Hello, " + author.getAsMention() + "!").complete();	
         	}
@@ -78,7 +84,7 @@ public class App extends ListenerAdapter {
 				}
     			msgChannel.sendMessage(numToSend + "!").complete();	
     		}
-    		else if(args[0].equals("pal")) {
+    		else if(args[0].equals("pal") || args[0].equals("palindrome")) {
     			String strPal = args[1]; //second argument
     			boolean pal = true;
     			for(int i = 0; i < strPal.length(); i++) {
@@ -86,10 +92,25 @@ public class App extends ListenerAdapter {
     					pal = false;
     				}
     			}
-    			if(pal)
-    				msgChannel.sendMessage(strPal + " is a palindrome!").complete();	
-    			else
-    				msgChannel.sendMessage(strPal + " is not a palindrome!").complete();	
+    			final String newStrPal = strPal.substring(0,1).toUpperCase() + strPal.substring(1).toLowerCase();
+    			if(pal) {
+    				msgChannel.sendMessage(newStrPal + " is a palindrome!").complete();	
+    			}
+    			else {
+    				msgChannel.sendMessage(newStrPal + " is not a palindrome!").complete();
+    			}
+    		}
+    		else if(args[0].equals("thanks") || args[0].equals("thankyou")) {
+    			msgChannel.sendMessage("You're quite welcome, " + author.getAsMention() + "! :)").complete();
+    		}
+    		else if(args[0].equals("goodnight") || args[0].equals("night")) {
+    			msgChannel.sendMessage("Good night, " + author.getAsMention() + "! :)").complete();
+    		}
+    		else if(args[0].equals("sweet")) {
+    			msgChannel.sendMessage("Glad you appreciate me, " + author.getAsMention() + "!").complete();
+    		}
+    		else if(args[0].equals("logoff")) {
+    			msgChannel.sendMessage(commandUnfinished).complete();
     		}
     	}
     }
